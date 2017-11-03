@@ -16,6 +16,10 @@ let handleWeatherResponse = function(response) {
   window.response = response
 
   // **** your code starts here - don't modify anything else. you will be sad.
+  $("#current-conditions-icon").html(icon(response.currently));
+  $("#current-conditions-text").html(Math.round(response.currently.temperature)+" "+response.currently.summary);
+
+  $(".current").fadeIn(2000);
 
   $(".forecast").empty();
   let markup = "";
@@ -23,10 +27,11 @@ let handleWeatherResponse = function(response) {
   for(i=0;i<6;i++) {
 
     markup += "<div class='col'>";
-    markup += "<h3><i class='fa fa-sun-o'>" +icon(response.daily.data[i])+ "</i></h3>";
+    markup += "<h3><i>" +icon(response.daily.data[i])+ "</i></h3>";
     markup += "<h4>"+Math.round(response.daily.data[i].temperatureHigh)+"|"+Math.round(response.daily.data[i].temperatureLow)+"</h4>";
     markup += "<h5>"+response.daily.data[i].summary+ "</h5>";
     markup += "</div>";
+
   }
 
   $(".forecast").append(markup);
